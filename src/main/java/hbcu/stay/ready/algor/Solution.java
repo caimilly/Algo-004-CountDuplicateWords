@@ -1,9 +1,27 @@
 package hbcu.stay.ready.algor;
 
+import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class Solution {
 
+    //making the input map
+    public LinkedHashMap<String, Integer> createMap (String input){
+        String[] inputSplit = input.replaceAll("[.!,]", "").split(" ");//1
+        LinkedHashMap<String, Integer> uniqueWordMap = new LinkedHashMap<String, Integer>();
+
+        for (int word = 0; word < inputSplit.length; word++) {//2-3
+            if (!uniqueWordMap.containsKey(inputSplit[word]))
+                uniqueWordMap.put(inputSplit[word], 1);
+            else {
+                //Integer keyValue = uniqueWordMap.get(inputSplit[word]);
+                //keyValue++;
+                uniqueWordMap.get(inputSplit[word]+1);
+            }
+        }
+        return uniqueWordMap;
+    }
     public String countUniqueWords(String input) {
         /*
         1. split string by spaces
@@ -15,29 +33,23 @@ public class Solution {
         5. print each unique word and reps on separate line
          */
 
-        String[] inputSplit = input.replaceAll("[.!,]", "").split(" ");
-        LinkedHashMap<String, Integer> uniqueWordMap = new LinkedHashMap<String, Integer>();
+        //ref to map
+        LinkedHashMap<String, Integer> uniqueWordMap = createMap(input);
+        Iterator<Map.Entry<String, Integer>> mapIterator = uniqueWordMap.entrySet().iterator();
+        Map.Entry mapPair = mapIterator.next();
 
-        for(int word = 0;word < inputSplit.length;word++){
-            if(!uniqueWordMap.containsKey(inputSplit[word]))
-                uniqueWordMap.put(inputSplit[word],1);
-            else{
-                Integer keyValue = uniqueWordMap.get(inputSplit[word]);
-                keyValue++;
-            }
+        String wordKey = mapPair.getKey().toString();
+        String wordValue = mapPair.getValue().toString();
+
+        String uniqueWordString = "";
+        int uniqueNum = uniqueWordMap.size();//4
+        uniqueWordString += String.format("The %d unique words are: \n", uniqueNum);
+        while (mapIterator.hasNext()) {
+            if (mapIterator.hasNext()) {
+                uniqueWordString += wordKey + "(Seen " + wordValue + ")\n";
+            } else
+                uniqueWordString += wordKey + "(Seen " + wordValue + ")";
         }
-        int uniqueNum = uniqueWordMap.size();
-
-
-
-
-
-
-
-
-//format for output; might need to be loop to print out each keyvalue pair in map
-        //String response = String.format("The"+(uniqueNum) + "unique words are: \n" + uniqueWordMap.get(key) + "(Seen "+ uniqueWordMap.get(keyvalue)+")\n");
-
-return response;
+        return uniqueWordString;
     }
-    }
+}
