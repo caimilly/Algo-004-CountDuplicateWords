@@ -1,51 +1,43 @@
 package hbcu.stay.ready.algor;
 
-import sun.text.IntHashtable;
-
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class Solution {
 
     public String countUniqueWords(String input) {
-        //loop for # unique words
-        /*int duplicateSetCount = 0;
-        HashMap<String,Integer> duplicateMap = new HashMap<String, Integer>();
-        for(int i = 0;i<input.length();i++){
-            if(!duplicateMap.containsKey(input[i])){
-                duplicateMap.put(input[i],1);
-            }else{
-                Integer keyValue = duplicateMap.get(input[i]);
-                if(keyValue == 1){
-                    duplicateSetCount++;
-                    keyValue++;
-                    duplicateMap.put(input[i],keyValue);
-                }
-            }
-
-        }
-
-
-
-        HashMap<String, Integer> wordMap = new HashMap<String, Integer>(Integer.parseInt(input));
-        String inputArray[] = input.split(" ");
-        int duplicateSetCount = 0;
-        Integer keyValue=0;
-        for (int i = 0; i < inputArray.length; i++) {
-            if (!wordMap.containsKey(inputArray[i])) {
-                wordMap.put(inputArray[i], 1);
-                ;
-            } else {
-                keyValue = wordMap.get(inputArray[i]);
-                if (keyValue == 1) {
-                    duplicateSetCount++;
-                    keyValue++;
-                    wordMap.put(inputArray[i], keyValue);
-                }
-            }
-        }
-        return String.valueOf((wordMap.keySet()));
-
+        /*
+        1. split string by spaces
+        1b. remove punctuation from string
+        2.get iterator to go thru string
+        2b.for each word, add to map, and value++
+        3. for each unique word, uniquenum++
+        4. print out num of unique words
+        5. print each unique word and reps on separate line
          */
-        return input;
+
+        String[] inputSplit = input.replaceAll("[.!,]", "").split(" ");
+        LinkedHashMap<String, Integer> uniqueWordMap = new LinkedHashMap<String, Integer>();
+
+        for(int word = 0;word < inputSplit.length;word++){
+            if(!uniqueWordMap.containsKey(inputSplit[word]))
+                uniqueWordMap.put(inputSplit[word],1);
+            else{
+                Integer keyValue = uniqueWordMap.get(inputSplit[word]);
+                keyValue++;
+            }
+        }
+        int uniqueNum = uniqueWordMap.size();
+
+
+
+
+
+
+
+
+//format for output; might need to be loop to print out each keyvalue pair in map
+        //String response = String.format("The"+(uniqueNum) + "unique words are: \n" + uniqueWordMap.get(key) + "(Seen "+ uniqueWordMap.get(keyvalue)+")\n");
+
+return response;
     }
-}
+    }
